@@ -1,0 +1,32 @@
+
+facts = {
+    ("American", "Robert"),
+    ("Missile", "M1"),
+    ("Owns", "A", "M1"),
+    ("Enemy", "A", "America"),
+    ("Sells", "Robert", "M1", "A")
+}
+
+def backward_chaining(goal):
+    if goal in facts:
+        return True
+
+    if goal[0] == "Criminal":
+        x = goal[1]
+        return (
+            backward_chaining(("American", x))
+            and backward_chaining(("Sells", x, "M1", "A"))
+            and backward_chaining(("Missile", "M1"))
+            and backward_chaining(("Enemy", "A", "America"))
+        )
+
+    if goal[0] == "Sells":
+        return goal in facts
+
+    return False
+
+if backward_chaining(("Criminal", "Robert")):
+    print("Robert is a criminal")
+else:
+    print("Cannot prove Robert is a criminal")
+    
