@@ -1,0 +1,52 @@
+
+# 1. Unification Algorithm
+
+def is_variable(x):
+    return x.isupper() and x not in ["JOHN", "MARY"]
+
+def unify(p1, p2):
+    if p1[0] != p2[0] or len(p1[1]) != len(p2[1]):
+        print("Unification Failed")
+        return
+
+    subs = {}
+
+    for a, b in zip(p1[1], p2[1]):
+        if a == b:
+            continue
+        elif is_variable(a):
+            subs[a] = b
+        elif is_variable(b):
+            subs[b] = a
+        else:
+            print("Unification Failed")
+            return
+
+    print("MGU:", subs)
+
+p1 = ("P", ["X", "JOHN"])
+p2 = ("P", ["MARY", "Y"])
+
+print("Unification:")
+unify(p1, p2)
+
+
+# 2. Resolution Principle
+def resolve(c1, c2):
+    for a in c1:
+        for b in c2:
+            if a == "NOT " + b:
+                return [x for x in c1 if x != a] + \
+                       [x for x in c2 if x != b]
+            if b == "NOT " + a:
+                return [x for x in c1 if x != a] + \
+                       [x for x in c2 if x != b]
+    return None
+
+c1 = ["NOT HeavyTraffic", "Congestion"]
+c2 = ["HeavyTraffic"]
+
+print("\nResolution:")
+print("Clause 1:", c1)
+print("Clause 2:", c2)
+print("Resolvent:", resolve(c1, c2))
