@@ -1,0 +1,15 @@
+
+def solve_blocks():
+    print("Initial State:")
+    print("A and B are on table, C is on A")
+
+    print("\nPlanning Actions:")
+    print("1. Move C from A to table")
+    print("2. Move A from table to B")
+    print("3. Move C from table to A")
+
+    print("\nGoal State Achieved:")
+    print("A is on B")
+    print("C is on A")
+
+solve_blocks()
